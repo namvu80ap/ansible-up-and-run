@@ -1,0 +1,25 @@
+  - name: Setup install php 7
+    hosts: localVM1
+    sudo: True
+    tasks:
+    - name: Install epel-release
+      yum: name=epel-release state=installed
+    - name: Add repository 'remi-repo'
+      command: rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
+    - name: install php70w
+      yum: name=php70w
+    - name: install php modules
+      yum: name={{ item }}
+      with_items:
+        - php70w-xml
+        - php70w-soap
+        - php70w-xmlrpc
+        - php70w-mcrypt
+        - php70w-mbstring
+        - php70w-json
+        - php70w-gd
+        - php70w-fpm
+        - php70w-pdo
+        - php70w-zip
+    - name: check php installed
+      command: php -v

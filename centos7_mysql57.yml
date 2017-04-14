@@ -1,0 +1,10 @@
+---
+  - name: Setup mysql 5.7
+    hosts: localVM1
+    sudo: True
+    tasks:
+    - name: Install mysql5.7
+      yum:  name=mysql-community-server state=latest
+    handlers:
+    - name: mysql5.7 start
+      command: systemctl restart mysqld.service

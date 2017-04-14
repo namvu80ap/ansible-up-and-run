@@ -1,0 +1,6 @@
+  - name: Setup docker and run some docker images
+    hosts: localVM1
+    sudo: True
+    tasks:
+    - name: Install docker
+      yum: name=docker state=latest

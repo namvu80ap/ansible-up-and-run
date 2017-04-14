@@ -1,0 +1,17 @@
+---
+  - name: Setup httpd webserver
+    hosts: localVM1
+    sudo: True
+    tasks:
+    - name: Install the httpd rpm
+      yum: name=httpd
+    - name: start the httpd service
+      service: name=httpd state=started
+    - name: start the firewalld service
+      service: name=firewalld state=restarted
+    - name: Open port 80
+      firewalld: port=80/tcp zone=public permanent=true state=enabled immediate=yes
+
+    handlers:
+    - name: restart httpd
+      service: name=httpd state=restarted
